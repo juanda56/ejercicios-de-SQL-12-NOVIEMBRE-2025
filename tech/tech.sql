@@ -1,4 +1,3 @@
--- Crear base de datos
 CREATE DATABASE IF NOT EXISTS cursos_en_linea;
 USE cursos_en_linea;
 
@@ -15,7 +14,9 @@ CREATE TABLE cursos (
     nombre_curso VARCHAR(100) NOT NULL,
     duracion INT NOT NULL, -- duración en horas
     id_instructor INT NOT NULL,
-    FOREIGN KEY (id_instructor) REFERENCES instructores(id_instructor) ON DELETE CASCADE
+    CONSTRAINT fk_curso_instructor FOREIGN KEY (id_instructor)
+        REFERENCES instructores(id_instructor)
+        ON DELETE CASCADE
 );
 
 -- Tabla de estudiantes
@@ -31,6 +32,10 @@ CREATE TABLE inscripciones (
     fecha DATE NOT NULL,
     id_estudiante INT NOT NULL,
     id_curso INT NOT NULL,
-    FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id_estudiante) ON DELETE CASCADE,
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso) ON DELETE CASCADE
+    CONSTRAINT fk_inscripcion_estudiante FOREIGN KEY (id_estudiante)
+        REFERENCES estudiantes(id_estudiante)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_inscripcion_curso FOREIGN KEY (id_curso)
+        REFERENCES cursos(id_curso)
+        ON DELETE CASCADE
 );
